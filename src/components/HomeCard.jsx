@@ -1,5 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function HomeCard({ images }) {
   const cardTitle = [

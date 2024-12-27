@@ -62,7 +62,7 @@ export default function Navbar() {
             marginInline: "auto",
           }}
         >
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <Tab
               key={item.label}
               label={item.label}
