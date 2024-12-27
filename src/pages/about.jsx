@@ -1,7 +1,7 @@
 import { Container, Box, Typography } from "@mui/material";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import DetailSection from "@/components/DetailSection";
+import DetailSection from "../components/DetailSection";
 import GallerySection from "../components/GallerySection";
 import { galleryImages } from "../constants/galleryImages";
 import HeaderTypography from "../components/HeaderTypography";

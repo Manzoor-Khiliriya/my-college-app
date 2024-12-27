@@ -1,17 +1,20 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Tab, Tabs } from "@mui/material";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [activeTab, setActiveTab] = useState(0);
   const open = Boolean(anchorEl);
+  const router = useRouter(); 
+
+ 
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,69 +25,80 @@ export default function Navbar() {
   };
 
   const menuItems = [
-    { label: 'About', href: '/about' },
-    { label: 'Admissions', href: '/admissions' },
-    { label: 'Contact', href: '/contact' },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Admissions", href: "/admissions" },
+    { label: "Contact", href: "/contact" },
   ];
+ 
+
+  useEffect(() => {
+    const currentTab = menuItems.findIndex(
+      (item) => item.href === router.pathname
+    );
+    setActiveTab(currentTab);
+  }, [router.pathname]);
 
   return (
-    <AppBar position="static" color="primary" elevation={4}>
+    <AppBar position="static" elevation={4} sx={{ backgroundColor: "darkblue" }}>
       <Toolbar>
-        <Typography
-          variant="h6"
-          component="a"
-          href="/"
-          sx={{
-            flexGrow: 1,
-            textDecoration: 'none',
-            color: 'inherit',
-            fontWeight: 'bold',
-            fontSize: { xs: '1.2rem', sm: '1.5rem' },
-          }}
-        >
-         <img src='../images/my-logo.png' style={{display: 'flex', marginBlock: '5px'}} height={80}/>
-        </Typography>
-        {/* Desktop Menu */}
-        <Box 
-          sx={{ 
-            display: { xs: 'none', md: 'flex' }, 
-            gap: 2 
-          }}
-        >
-          {menuItems.map((item) => (
-            <Button 
-              key={item.label} 
-              color="inherit" 
-              href={item.href}
-            >
-              {item.label}
-            </Button>
-          ))}
+        <Box component="a" href="/">
+          <img
+            src="../images/my-logo.png"
+            style={{ display: "flex", marginBlock: "5px" }}
+            height={80}
+            alt="Logo"
+          />
         </Box>
+      </Toolbar>
+
+      {/* Desktop Menu */}
+      <Toolbar>
+        <Tabs
+          value={activeTab}
+          aria-label="navigation tabs"
+          sx={{
+            display: { xs: "none", md: "flex" },
+            marginInline: "auto",
+          }}
+        >
+          {menuItems.map((item, index) => (
+            <Tab
+              key={item.label}
+              label={item.label}
+              onClick={() => router.push(item.href)}
+              sx={{
+                color: "white",
+              }}
+            />
+          ))}
+        </Tabs>
+
         {/* Mobile Menu */}
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
+        <Box sx={{ display: { xs: "flex", md: "none" }, marginInline: "auto" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            aria-label="navigation"
             onClick={handleMenuOpen}
           >
-            <MenuIcon />
-          </IconButton>
+            Navigation
+          </Button>
           <Menu
             anchorEl={anchorEl}
             open={open}
             onClose={handleMenuClose}
             PaperProps={{
-              sx: { width: '200px', maxWidth: '100%' },
+              sx: { width: "200px", maxWidth: "100%" },
             }}
           >
             {menuItems.map((item) => (
               <MenuItem
                 key={item.label}
-                onClick={handleMenuClose}
-                component="a"
-                href={item.href}
+                onClick={() => {
+                  handleMenuClose();
+                  router.push(item.href);
+                }}
               >
                 {item.label}
               </MenuItem>

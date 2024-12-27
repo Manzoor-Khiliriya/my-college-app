@@ -13,7 +13,7 @@ export default function Footer() {
     >
       <Container maxWidth="md">
         <Typography variant="body2">
-          &copy; 2024 GUPS Bekal. All rights reserved.
+          &copy; 2024 My College. All rights reserved.
         </Typography>
       </Container>
     </Box>
