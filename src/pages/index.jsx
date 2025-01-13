@@ -1,6 +1,4 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
 import DetailSection from "../components/DetailSection";
 import { Container } from "@mui/material";
 import GallerySection from "../components/GallerySection";
