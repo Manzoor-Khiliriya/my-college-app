@@ -1,7 +1,6 @@
 import React from "react";
 import CourseCard from "./CourseCard";
 import { Grid } from "@mui/material";
-import CourseDetails from "../pages/courses/[courseId]";
 
 export default function CourseList() {
   const courses = [
