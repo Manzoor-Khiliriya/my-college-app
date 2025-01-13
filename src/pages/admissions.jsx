@@ -1,6 +1,4 @@
 import { Container, Paper, Divider } from '@mui/material';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import AdmissionsIntro from '@/components/AdmissionsIntro';
 import AdmissionProcess from '@/components/AdmissionProcess';
 import FeeStructure from '@/components/FeeStructure';

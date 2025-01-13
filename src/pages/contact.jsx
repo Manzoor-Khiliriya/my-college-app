@@ -1,6 +1,4 @@
 import { Container, Box, Typography, Paper } from "@mui/material";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import HeaderTypography from "../components/HeaderTypography";
 

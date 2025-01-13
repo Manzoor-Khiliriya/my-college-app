@@ -1,9 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography, Box, Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+
 
 const courses = [
   { id: 1, title: "BBA", description: "Learn the fundamentals of React." },
