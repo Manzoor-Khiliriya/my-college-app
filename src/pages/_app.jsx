@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Head from "next/head";
 
@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         <title>My College App</title>
         <meta name="description" content="Welcome to the college app!" />
       </Head>
-      <Navbar />
+      <Header />
       <Component {...pageProps} />
       <Footer />
     </>
