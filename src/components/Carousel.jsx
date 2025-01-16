@@ -1,9 +1,10 @@
 import { Box, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Image from "next/image";
 
-export default function Carousel({ images }) {
+export default function Carousel({ images, interval = 3000 }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePrev = () => {
@@ -25,35 +26,44 @@ export default function Carousel({ images }) {
     color: "white",
   };
 
+  useEffect(() => {
+    const autoSlide = setInterval(() => {
+      handleNext();
+    }, 3000);
+
+    return () => clearInterval(autoSlide);
+  }, [activeIndex, 3000]);
+
   return (
     <Box sx={{ maxWidth: "100%", position: "relative" }}>
-      <Box>
-        <img
+      <Image
           src={images[activeIndex].src}
           alt={images[activeIndex].alt}
-          style={{ width: "100%", height: "35vh", objectFit: "fill" }}
+          layout="responsive"
+          width={1200}  
+          height={650}  
+          style={{ objectFit: "contain" }} 
         />
-      </Box>
       <IconButton
-            onClick={handlePrev}
-            sx={{
-              ...carouselButton,
-              left: 10,
-            }}
-            aria-label="Previous image"
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleNext}
-            sx={{
-              ...carouselButton,
-              right: 10,
-            }}
-            aria-label="Next image"
-          >
-            <ArrowForwardIcon />
-          </IconButton>
+        onClick={handlePrev}
+        sx={{
+          ...carouselButton,
+          left: 10,
+        }}
+        aria-label="Previous image"
+      >
+        <ArrowBackIcon />
+      </IconButton>
+      <IconButton
+        onClick={handleNext}
+        sx={{
+          ...carouselButton,
+          right: 10,
+        }}
+        aria-label="Next image"
+      >
+        <ArrowForwardIcon />
+      </IconButton>
     </Box>
   );
 }
