@@ -5,10 +5,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import { IconButton, Collapse, Link, Grid, TextField } from "@mui/material";
+import { IconButton, Collapse, Link, Grid } from "@mui/material";
 import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

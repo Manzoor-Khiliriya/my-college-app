@@ -29,10 +29,10 @@ export default function Carousel({ images, interval = 3000 }) {
   useEffect(() => {
     const autoSlide = setInterval(() => {
       handleNext();
-    }, 3000);
+    }, interval);
 
     return () => clearInterval(autoSlide);
-  }, [activeIndex, 3000]);
+  }, [activeIndex, interval]);
 
   return (
     <Box sx={{ maxWidth: "100%", position: "relative" }}>
