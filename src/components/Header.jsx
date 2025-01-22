@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import AppBar from "@mui/material/AppBar";
@@ -33,7 +34,6 @@ export default function Header() {
 
   const handleNavigation = useCallback(
     (href) => {
-      // Perform navigation and set active tab after navigation completes
       router.push(href).then(() => {
         setActiveTab(href);
         setIsMobileMenuOpen(false);
@@ -42,7 +42,11 @@ export default function Header() {
     [router]
   );
 
-  const menuLinkStyles = {
+  const activeTabStyles = {
+    color: "lightblue",
+  };
+
+  const inactiveTabStyles = {
     color: "white",
     position: "relative",
     "&::after": {
@@ -59,10 +63,17 @@ export default function Header() {
       width: "100%",
       backgroundColor: "white",
     },
+    "&:hover": {
+      color: "red",
+    },
   };
 
   return (
-    <AppBar position="static" elevation={4} sx={{ backgroundColor: "darkblue" }}>
+    <AppBar
+      position="static"
+      elevation={4}
+      sx={{ backgroundColor: "darkblue" }}
+    >
       <Toolbar>
         {/* Logo */}
         <Box component="a" href="/">
@@ -71,8 +82,13 @@ export default function Header() {
             width={150}
             height={80}
             layout="responsive"
-            alt="Logo"
-            style={{ display: "flex",marginBlock: "5px", cursor: "pointer",maxHeight: '80px' }}
+            alt="College Logo"
+            style={{
+              display: "flex",
+              marginBlock: "5px",
+              cursor: "pointer",
+              maxHeight: "80px",
+            }}
             priority
           />
         </Box>
@@ -96,22 +112,30 @@ export default function Header() {
                 key={index}
                 value={item.href}
                 label={item.label}
-                sx={{
-                  ...(activeTab === item.href
-                    ? { ...menuLinkStyles, color: "lightblue" }
-                    : { ...menuLinkStyles }),
-                  "&:hover": {
-                    color: activeTab === item.href ? "lightblue" : "red",
-                  },
-                }}
+                sx={
+                  activeTab === item.href ? activeTabStyles : inactiveTabStyles
+                }
               />
             ))}
           </Tabs>
         </Box>
 
         {/* Mobile Menu Icon */}
-        <Box sx={{ display: { xs: "flex", lg: "none" }, marginInlineStart: "auto" }}>
-          <IconButton color="inherit" aria-label="open menu" onClick={handleToggle}>
+        <Box
+          sx={{
+            display: { xs: "flex", lg: "none" },
+            marginInlineStart: "auto",
+          }}
+        >
+          <IconButton
+            color="inherit"
+            aria-label="open menu"
+            onClick={handleToggle}
+            sx={{
+              transition: "transform 0.3s ease-in-out",
+              transform: isMobileMenuOpen ? "rotate(90deg)" : "rotate(0deg)",
+            }}
+          >
             <MenuIcon />
           </IconButton>
         </Box>
@@ -119,18 +143,24 @@ export default function Header() {
 
       {/* Mobile Navigation Dropdown */}
       <Collapse in={isMobileMenuOpen} timeout="auto" unmountOnExit>
-        <Box sx={{ backgroundColor: "darkblue", padding: 2 }}>
+        <Box
+          sx={{
+            backgroundColor: "darkblue",
+            padding: 2,
+            maxHeight: "60vh",
+            overflowY: "auto",
+          }}
+        >
           {menuItems.map((item, index) => (
             <MenuItem
               key={index}
               onClick={() => handleNavigation(item.href)}
               sx={{
-                color: activeTab === item.href ? "black" : "white",
-                textAlign: "center",
+                color: activeTab === item.href ? activeTabStyles : "white",
                 padding: 1,
                 "&:hover": {
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: activeTab === item.href ? "black" : "red",
+                  color: activeTab === item.href ? activeTabStyles : "red",
                 },
               }}
             >
