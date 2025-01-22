@@ -1,5 +1,7 @@
 import React from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import HeaderTypography from "./HeaderTypography";
+
 
 export default function ContactForm() {
   return (
@@ -11,7 +13,7 @@ export default function ContactForm() {
         gap: 3,
         maxWidth: 600,
         margin: "auto",
-        mt: 4,
+        marginBlock: 4,
         p: 3,
         borderRadius: 2,
         boxShadow: 3,
@@ -20,7 +22,11 @@ export default function ContactForm() {
       noValidate
       autoComplete="off"
     >
-  
+      <HeaderTypography>Contact Us</HeaderTypography>
+      <Typography variant="h6" textAlign="center" gutterBottom>
+              We would love to hear from you! Please fill out the form below to
+              get in touch.
+            </Typography>
       <TextField
         label="Name"
         variant="outlined"

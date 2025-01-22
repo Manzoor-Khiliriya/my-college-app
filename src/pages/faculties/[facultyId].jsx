@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import { Card, CardContent, Typography, Box, Button, CircularProgress } from "@mui/material";
+import Head from "next/head";
 
 const faculties = [
   {
@@ -64,7 +65,7 @@ const faculties = [
     department: "Health Sciences",
     bio: "A specialist in Ayurvedic medicine with a deep interest in traditional healing methods and holistic health practices.",
     yearsOfExperience: 14,
-  },
+  }
 ];
 
 export default function FacultyDetail() {
@@ -73,18 +74,42 @@ export default function FacultyDetail() {
 
   const faculty = faculties.find((faculty) => faculty.id === Number(facultyId));
 
-  if (!faculty) return <Typography>Loading...</Typography>;
+  if (!facultyId) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!faculty) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Typography variant="h5" color="error">
+          Faculty not found. Please check the ID or go back to the Faculty List.
+        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => router.push("/faculties")}
+          sx={{ marginTop: 2 }}
+        >
+          Back to Faculty List
+        </Button>
+      </Box>
+    );
+  }
 
   return (
     <>
-      <Box>
-        <Card sx={{ margin: "auto", marginBlock: 3 }}>
+      <Box height="100vh">
+        <Card sx={{ margin: 3 }}>
           <CardContent>
             <Typography variant="h4" gutterBottom>
               {faculty.name}
             </Typography>
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              Department: {faculty.department}
+            <Typography variant="h6" gutterBottom>
+              <strong>Department: </strong> {faculty.department}
             </Typography>
             <Typography variant="body1" paragraph>
               <strong>Bio:</strong> {faculty.bio}
@@ -92,7 +117,6 @@ export default function FacultyDetail() {
             <Typography variant="body1" paragraph>
               <strong>Years of Experience: </strong> {faculty.yearsOfExperience}
             </Typography>
-
             <Button
               variant="contained"
               color="primary"

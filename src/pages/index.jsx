@@ -1,21 +1,27 @@
-import Hero from "@/components/Hero";
-import DetailSection from "../components/DetailSection";
-import { Container } from "@mui/material";
-import GallerySection from "../components/GallerySection";
-import { galleryImages } from "../constants/galleryImages";
+import dynamic from "next/dynamic";
 import Carousel from "../components/Carousel";
-import { carouselImages } from "../constants/carouselImages";
 import HomeCard from "../components/HomeCard";
+import { Container, Box } from "@mui/material";
+import { galleryImages } from "../constants/galleryImages";
 import { cardImages } from "../constants/cardImages";
+import { carouselImages } from "../constants/carouselImages";
+
+const Hero = dynamic(() => import("../components/Hero"), { ssr: false });
+const GallerySection = dynamic(() => import("../components/GallerySection"), {
+  ssr: false,
+});
+const DetailSection = dynamic(() => import("../components/DetailSection"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
     <div>
-      <Carousel images={carouselImages}/>
-      <HomeCard images={cardImages} />
+      <Carousel images={carouselImages} />
       <Hero />
+      <HomeCard images={cardImages} />
       <Container>
-        <GallerySection images={galleryImages} title="Our College Gallery"  />
+        <GallerySection images={galleryImages} title="Our College Gallery" />
         <DetailSection />
       </Container>
     </div>

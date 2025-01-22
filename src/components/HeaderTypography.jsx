@@ -15,7 +15,7 @@ function HeaderTypography({
       align={align}
       gutterBottom={gutterBottom}
       sx={{
-        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
+        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
         fontWeight: 'bold',
         color: 'text.primary',
         ...sx, 

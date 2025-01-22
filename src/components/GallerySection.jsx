@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function GallerySection({ title, images }) {
   return (
-    <Box my={4}>
+    <Box my={5}>
       <Typography variant="h4" component="h2" align="center" gutterBottom>
         {title}
       </Typography>
@@ -14,11 +14,13 @@ function GallerySection({ title, images }) {
               <Box sx={{ padding: 1 }}>
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt={image.alt || "Gallery Image"}
                   width={500}
                   height={300}
                   layout="responsive"
                   objectFit="cover"
+                  loading="lazy"
+                  sx={{ borderRadius: 2 }}
                 />
               </Box>
             </Grid>
@@ -28,5 +30,7 @@ function GallerySection({ title, images }) {
     </Box>
   );
 }
+
+
 
 export default GallerySection;

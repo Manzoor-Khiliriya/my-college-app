@@ -7,7 +7,7 @@ import HeaderTypography from "../components/HeaderTypography";
 export default function About() {
   return (
     <div>
-      <Container maxWidth="md" sx={{ paddingY: 4 }}>
+      <Container sx={{ paddingY: 4 }}>
         <Box mb={4}>
           <HeaderTypography>About Our College</HeaderTypography>
           <Typography

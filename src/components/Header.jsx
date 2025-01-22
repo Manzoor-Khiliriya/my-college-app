@@ -1,13 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import { IconButton, Collapse, Link, Grid } from "@mui/material";
+import { IconButton, Collapse, Tabs, Tab, MenuItem } from "@mui/material";
 import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
+import { BorderBottom } from "@mui/icons-material";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +20,7 @@ export default function Header() {
     { label: "Courses", href: "/courses" },
     { label: "Faculties", href: "/faculties" },
     { label: "Admissions", href: "/admissions" },
+    { label: "Students Registration", href: "/students-registration" },
     { label: "Contact Us", href: "/contact" },
   ];
 
@@ -31,75 +32,86 @@ export default function Header() {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const handleNavigation = (href) => {
-    router.push(href);
-    setActiveTab(href);
-    setIsMobileMenuOpen(false);
+  const handleNavigation = useCallback(
+    (href) => {
+      // Perform navigation and set active tab after navigation completes
+      router.push(href).then(() => {
+        setActiveTab(href);
+        setIsMobileMenuOpen(false);
+      });
+    },
+    [router]
+  );
+
+  const menuLinkStyles = {
+    color: "white",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      width: 0,
+      height: "2px",
+      backgroundColor: "transparent",
+      transition: "width 0.3s ease-in-out, background-color 0.3s ease-in-out",
+    },
+    "&:hover::after": {
+      width: "100%",
+      backgroundColor: "white",
+    },
   };
 
   return (
-    <AppBar
-      position="static"
-      elevation={4}
-      sx={{ backgroundColor: "darkblue" }}
-    >
+    <AppBar position="static" elevation={4} sx={{ backgroundColor: "darkblue" }}>
       <Toolbar>
         {/* Logo */}
-        <Box component="a" href="/" sx={{ flexGrow: { xs: 1, md: 0 } }}>
+        <Box component="a" href="/">
           <Image
             src="/images/my-logo.png"
             width={150}
             height={80}
             alt="Logo"
             style={{ marginBlock: "5px", cursor: "pointer" }}
+            priority
           />
         </Box>
 
-
         {/* Desktop Navigation */}
-        <Box sx={{ marginInline: "auto" }}>
-          <Grid
-            container
-            spacing={4}
+        <Box sx={{ marginInline: "auto", display: { xs: "none", lg: "flex" } }}>
+          <Tabs
+            value={activeTab}
+            onChange={(_, newValue) => handleNavigation(newValue)}
+            aria-label="Navigation Tabs"
+            textColor="primary"
+            indicatorColor="primary"
             sx={{
-              display: { xs: "none", md: "flex" },
-             alignItems: "center"
+              "& .MuiTabs-indicator": {
+                backgroundColor: "white",
+              },
             }}
           >
             {menuItems.map((item, index) => (
-              <Grid item key={index}>
-                <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => handleNavigation(item.href)}
-                  aria-current={activeTab === item.href ? "page" : undefined}
-                  sx={{
-                    color: activeTab === item.href ? "lightgreen" : "white",
-                    textDecoration: "none",
-                    "&:hover": {
-                      color: "lightblue",
-                    },
-                  }}
-                >
-                  {item.label}
-                </Link>
-              </Grid>
+              <Tab
+                key={index}
+                value={item.href}
+                label={item.label}
+                sx={{
+                  ...(activeTab === item.href
+                    ? { ...menuLinkStyles, color: "lightblue" }
+                    : { ...menuLinkStyles }),
+                  "&:hover": {
+                    color: activeTab === item.href ? "lightblue" : "red",
+                  },
+                }}
+              />
             ))}
-          </Grid>
+          </Tabs>
         </Box>
 
         {/* Mobile Menu Icon */}
-        <Box
-          sx={{
-            display: { xs: "flex", md: "none" },
-            marginInlineStart: "auto",
-          }}
-        >
-          <IconButton
-            color="inherit"
-            aria-label="open menu"
-            onClick={handleToggle}
-          >
+        <Box sx={{ display: { xs: "flex", lg: "none" }, marginInlineStart: "auto" }}>
+          <IconButton color="inherit" aria-label="open menu" onClick={handleToggle}>
             <MenuIcon />
           </IconButton>
         </Box>
@@ -107,26 +119,18 @@ export default function Header() {
 
       {/* Mobile Navigation Dropdown */}
       <Collapse in={isMobileMenuOpen} timeout="auto" unmountOnExit>
-        <Box
-          sx={{
-            backgroundColor: "darkblue",
-            display: "flex",
-            flexDirection: "column",
-            padding: 2,
-          }}
-        >
+        <Box sx={{ backgroundColor: "darkblue", padding: 2 }}>
           {menuItems.map((item, index) => (
             <MenuItem
               key={index}
               onClick={() => handleNavigation(item.href)}
               sx={{
-                color: activeTab === item.href ? "red" : "white",
+                color: activeTab === item.href ? "black" : "white",
                 textAlign: "center",
-                textTransform: "none",
                 padding: 1,
                 "&:hover": {
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: "lightblue",
+                  color: activeTab === item.href ? "black" : "red",
                 },
               }}
             >

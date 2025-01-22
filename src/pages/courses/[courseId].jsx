@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import Link from "next/link";
 
-
-const courses = [
+const courses =  [
   {
     "id": 1,
     "title": "BCom (Bachelor of Commerce)",
@@ -54,38 +54,38 @@ const courses = [
     "title": "BAMS (Bachelor of Ayurvedic Medicine and Surgery)",
     "description": "The Bachelor of Ayurvedic Medicine and Surgery (BAMS) is an undergraduate program that combines traditional Ayurvedic medicine with modern medical practices. The course focuses on the principles of Ayurveda, herbal medicine, and holistic health, providing students with a deep understanding of alternative medicine. The program includes practical training in diagnosing and treating various health conditions using Ayurvedic methods. Graduates of BAMS can work as Ayurvedic doctors, consultants, or therapists, and many also pursue advanced studies or research in the field of alternative medicine."
   }
-]
-
+];
 
 export default function CourseDetails() {
   const router = useRouter();
   const { courseId } = router.query;
 
+  if (!courseId) return <Typography>Loading...</Typography>;
+
   const course = courses.find((course) => course.id === Number(courseId));
 
-  if (!course) return <Typography>Loading...</Typography>;
+  if (!course) return <Typography>Course not found.</Typography>;
 
   return (
-    <>
-      <Box sx={{ margin: "auto", marginBlock: 3 }}>
-        <Card>
-          <CardContent>
-            <Typography variant="h4" gutterBottom>
-              {course.title}
-            </Typography>
-            <Typography variant="body1" paragraph>
-              {course.description}
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => router.push("/courses")}
-            >
+    <Box  sx={{  height: '100vh' }}>
+      <Card  sx={{  margin: 3 }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            {course.title}
+          </Typography>
+          <Typography variant="body1" paragraph>
+            {course.description}
+          </Typography>
+          <Typography variant="body1" paragraph>
+            <strong>Number of seats available : 20</strong>
+          </Typography>
+          <Link href="/courses" passHref>
+            <Button variant="contained" color="primary">
               Back to Courses
             </Button>
-          </CardContent>
-        </Card>
-      </Box>
-    </>
+          </Link>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }

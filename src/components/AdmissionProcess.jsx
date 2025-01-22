@@ -16,12 +16,17 @@ export default function AdmissionProcess() {
       <Typography variant="body1" paragraph>
         Joining us is easy! Follow these steps:
       </Typography>
-      {steps.map((step, index) => (
-        <Typography key={index} variant="body2" paragraph>
-          {index + 1}. {step}
-        </Typography>
-      ))}
-      <Button variant="contained" sx={{ mt: 2 }}>
+      <ol>
+        {steps.map((step, index) => (
+          <li key={index}>
+            <Typography key={index} variant="body2" paragraph>
+               {step}
+            </Typography>
+          </li>
+        ))}
+      </ol>
+
+      <Button variant="contained" href="/students-registration" sx={{ mt: 2 }}>
         Continue with Admission Process
       </Button>
     </Box>
