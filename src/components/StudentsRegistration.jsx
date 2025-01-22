@@ -8,7 +8,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormHelperText,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import HeaderTypography from "./HeaderTypography";
@@ -69,12 +68,7 @@ export default function StudentsRegistration() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      formData.name &&
-      formData.email &&
-      formData.course &&
-      formData.phone
-    ) {
+    if (formData.name && formData.email && formData.course && formData.phone) {
       console.log("Form Submitted:", formData);
       setSubmitted(true);
 
@@ -128,8 +122,7 @@ export default function StudentsRegistration() {
         aria-label="Email"
       />
 
-
-      <FormControl required >
+      <FormControl required>
         <InputLabel id="course-select-label">Preferred Course</InputLabel>
         <Select
           labelId="course-select-label"

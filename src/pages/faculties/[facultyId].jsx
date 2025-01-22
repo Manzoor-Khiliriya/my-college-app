@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography, Box, Button, CircularProgress } from "@mui/material";
-import Head from "next/head";
 
 const faculties = [
   {

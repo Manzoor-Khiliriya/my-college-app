@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import { IconButton, Collapse, Tabs, Tab, MenuItem } from "@mui/material";
 import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
-import { BorderBottom } from "@mui/icons-material";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

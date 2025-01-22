@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import Carousel from "../components/Carousel";
 import HomeCard from "../components/HomeCard";
-import { Container, Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { galleryImages } from "../constants/galleryImages";
 import { cardImages } from "../constants/cardImages";
 import { carouselImages } from "../constants/carouselImages";
