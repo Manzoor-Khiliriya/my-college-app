@@ -70,8 +70,9 @@ export default function Header() {
             src="/images/my-logo.png"
             width={150}
             height={80}
+            layout="responsive"
             alt="Logo"
-            style={{ marginBlock: "5px", cursor: "pointer" }}
+            style={{ display: "flex",marginBlock: "5px", cursor: "pointer",maxHeight: '80px' }}
             priority
           />
         </Box>
