@@ -69,7 +69,7 @@ export default function CourseList() {
 
         setCourses(fetchedCourses);
         setLoading(false);
-      } catch (err) {
+      } catch {
         setError("Failed to load courses. Please try again later.");
         setLoading(false);
       }
