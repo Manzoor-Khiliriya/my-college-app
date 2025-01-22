@@ -43,7 +43,7 @@ export default function Header() {
   );
 
   const activeTabStyles = {
-    color: "lightblue",
+    color: "#00FFFF",
   };
 
   const inactiveTabStyles = {
