@@ -24,7 +24,7 @@ export default function FacultyList() {
         
         setFaculties(fetchedFaculties);
         setLoading(false);
-      } catch (err) {
+      } catch  {
         setError("Failed to load faculties. Please try again later.");
         setLoading(false);
       }
