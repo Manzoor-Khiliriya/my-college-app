@@ -1,3 +1,4 @@
+'use client'
 import { Box, IconButton } from "@mui/material";
 import { useState, useEffect, useCallback } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -36,7 +37,6 @@ export default function Carousel({ images, interval = 3000 }) {
 
   return (
     <Box sx={{ maxWidth: "100%", position: "relative" }}>
-      {/* Preloaded image with fixed width and height */}
       <Image
         src={images[activeIndex].src}
         alt={images[activeIndex].alt}
@@ -44,7 +44,7 @@ export default function Carousel({ images, interval = 3000 }) {
         width={1200}
         height={650} 
         style={{ objectFit: "contain" }}
-        priority // Ensures the image is preloaded faster
+        priority
       />
       <IconButton
         onClick={handlePrev}

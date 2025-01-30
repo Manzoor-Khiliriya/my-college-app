@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -13,46 +14,25 @@ import { useRouter } from "next/router";
 import HeaderTypography from "./HeaderTypography";
 
 const courses = [
-  {
-    id: 1,
-    title: "BCom",
-  },
-  {
-    id: 2,
-    title: "BBA",
-  },
-  {
-    id: 3,
-    title: "BSc",
-  },
-  {
-    id: 4,
-    title: "BA",
-  },
-  {
-    id: 5,
-    title: "BTech",
-  },
-  {
-    id: 6,
-    title: "BCA",
-  },
-  {
-    id: 7,
-    title: "LLB",
-  },
-  {
-    id: 8,
-    title: "BHM",
-  },
-  {
-    id: 9,
-    title: "BDS",
-  },
+  { id: 1, title: "BCom" },
+  { id: 2, title: "BBA" },
+  { id: 3, title: "BSc" },
+  { id: 4, title: "BA" },
+  { id: 5, title: "BTech" },
+  { id: 6, title: "BCA" },
+  { id: 7, title: "LLB" },
+  { id: 8, title: "BHM" },
+  { id: 9, title: "BDS" },
 ];
 
 export default function StudentsRegistration() {
   const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    course: "",
+    phone: "",
+  });
+  const [errors, setErrors] = useState({
     name: "",
     email: "",
     course: "",
@@ -64,19 +44,34 @@ export default function StudentsRegistration() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.course && formData.phone) {
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    let validationErrors = {};
+
+    if (!formData.name) validationErrors.name = "Name is required.";
+    if (!formData.email) validationErrors.email = "Email is required.";
+    else if (!emailRegex.test(formData.email)) validationErrors.email = "Please enter a valid email address.";
+    if (!formData.course) validationErrors.course = "Course selection is required.";
+    if (!formData.phone) validationErrors.phone = "Phone number is required.";
+    else if (!phoneRegex.test(formData.phone)) validationErrors.phone = "Please enter a valid phone number.";
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
       console.log("Form Submitted:", formData);
       setSubmitted(true);
 
       setTimeout(() => {
         router.push("/");
       }, 2000);
-    } else {
-      alert("Please fill in all required fields.");
     }
   };
 
@@ -109,6 +104,8 @@ export default function StudentsRegistration() {
         value={formData.name}
         onChange={handleChange}
         required
+        error={!!errors.name}
+        helperText={errors.name}
         aria-label="Name"
       />
 
@@ -119,10 +116,12 @@ export default function StudentsRegistration() {
         value={formData.email}
         onChange={handleChange}
         required
+        error={!!errors.email}
+        helperText={errors.email}
         aria-label="Email"
       />
 
-      <FormControl required>
+      <FormControl required error={!!errors.course}>
         <InputLabel id="course-select-label">Preferred Course</InputLabel>
         <Select
           labelId="course-select-label"
@@ -133,11 +132,16 @@ export default function StudentsRegistration() {
           name="course"
         >
           {courses.map((course, index) => (
-            <MenuItem key={index} value={course}>
+            <MenuItem key={index} value={course.title}>
               {course.title}
             </MenuItem>
           ))}
         </Select>
+        {errors.course && (
+          <Typography variant="body2" color="error" sx={{ marginTop: 1 }}>
+            {errors.course}
+          </Typography>
+        )}
       </FormControl>
 
       <TextField
@@ -147,6 +151,8 @@ export default function StudentsRegistration() {
         value={formData.phone}
         onChange={handleChange}
         required
+        error={!!errors.phone}
+        helperText={errors.phone}
         aria-label="Phone"
       />
 

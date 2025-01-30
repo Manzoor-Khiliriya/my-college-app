@@ -1,6 +1,6 @@
 import { Box, Typography, Paper } from '@mui/material';
 
-function Section({ title, children, titleAlign = 'left', contentAlign = 'justify' }) {
+function Section({ title, children, titleAlign = 'center', contentAlign = 'justify' }) {
   return (
     <Paper
       sx={{

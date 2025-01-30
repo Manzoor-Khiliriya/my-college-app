@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 export default function AdmissionProcess() {
   const steps = [
@@ -7,6 +8,12 @@ export default function AdmissionProcess() {
     "Schedule an interview or entrance test (if applicable).",
     "Await the admission decision and confirm your enrollment by paying the initial deposit.",
   ];
+
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push("/students-registration");
+  };
 
   return (
     <Box mb={3}>
@@ -26,7 +33,7 @@ export default function AdmissionProcess() {
         ))}
       </ol>
 
-      <Button variant="contained" href="/students-registration" sx={{ mt: 2 }}>
+      <Button variant="contained" onClick={handleNavigation} sx={{ mt: 2 }}>
         Continue with Admission Process
       </Button>
     </Box>

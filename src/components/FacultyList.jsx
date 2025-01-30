@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import FacultyCard from "./FacultyCard";
 
 export default function FacultyList() {

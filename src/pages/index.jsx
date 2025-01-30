@@ -5,6 +5,7 @@ import { Container } from "@mui/material";
 import { galleryImages } from "../constants/galleryImages";
 import { cardImages } from "../constants/cardImages";
 import { carouselImages } from "../constants/carouselImages";
+import HeaderTypography from "../components/HeaderTypography";
 
 const Hero = dynamic(() => import("../components/Hero"), { ssr: false });
 const GallerySection = dynamic(() => import("../components/GallerySection"), {
@@ -16,14 +17,15 @@ const DetailSection = dynamic(() => import("../components/DetailSection"), {
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Carousel images={carouselImages} />
       <Hero />
       <HomeCard images={cardImages} />
       <Container>
         <GallerySection images={galleryImages} title="Our College Gallery" />
+        <HeaderTypography>Our Details</HeaderTypography>
         <DetailSection />
       </Container>
-    </div>
+    </>
   );
 }

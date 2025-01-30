@@ -1,17 +1,18 @@
+'use client'
 import React from "react";
 import {
   Card,
   CardContent,
   Typography,
   CardActions,
-  Button,
-  Grid,
+  Button
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 
 export default function CourseCard({ course }) {
   return (
-    <Grid item xs={12} sm={6} md={4} key={course.id}>
+    <Grid size={{xs:12, sm:6, md:4}} key={course.id}>
       <Card sx={{ boxShadow: 3 }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>

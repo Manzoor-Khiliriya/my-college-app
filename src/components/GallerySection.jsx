@@ -1,12 +1,12 @@
 import { Box, Grid, Typography, Paper } from "@mui/material";
 import Image from "next/image";
+import HeaderTypography from "./HeaderTypography";
 
 function GallerySection({ title, images }) {
   return (
     <Box my={5}>
-      <Typography variant="h4" component="h2" align="center" gutterBottom>
-        {title}
-      </Typography>
+      <HeaderTypography>Our College Gallery</HeaderTypography>
+
       <Paper sx={{ padding: 3, boxShadow: 2 }}>
         <Grid container spacing={2} justifyContent="center">
           {images.map((image, index) => (
@@ -30,7 +30,5 @@ function GallerySection({ title, images }) {
     </Box>
   );
 }
-
-
 
 export default GallerySection;

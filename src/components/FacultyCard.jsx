@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import {  Card, CardContent, Typography, Button } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 export default function FacultyCard({ faculty }) {
   return (
-    <Grid item xs={12} sm={6} md={4} key={faculty.id}>
+    <Grid size={{xs:12 ,sm:6, md:4}} key={faculty.id}>
       <Card sx={{ boxShadow: 3 }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>

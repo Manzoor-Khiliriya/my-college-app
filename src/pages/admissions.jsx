@@ -7,7 +7,7 @@ import FAQs from '@/components/FAQs';
 
 export default function Admissions() {
   return (
-    <div>
+    <>
       <Container maxWidth="md" sx={{ paddingY: 4 }}>
         <Paper sx={{ padding: 4, boxShadow: 3 }}>
           <AdmissionsIntro />
@@ -21,6 +21,6 @@ export default function Admissions() {
           <FAQs />
         </Paper>
       </Container>
-    </div>
+    </>
   );
 }

@@ -20,6 +20,7 @@ export default function About() {
           </Typography>
         </Box>
         <GallerySection images={galleryImages} />
+        <HeaderTypography>Our Details</HeaderTypography>
         <DetailSection />
       </Container>
     </div>

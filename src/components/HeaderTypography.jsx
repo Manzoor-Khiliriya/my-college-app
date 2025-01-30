@@ -1,12 +1,12 @@
-import { Typography } from '@mui/material';
+import { Typography } from "@mui/material";
 
-function HeaderTypography({ 
-  variant = 'h4', 
-  component = 'h1', 
-  align = 'center', 
-  gutterBottom = true, 
-  children, 
-  sx = {} 
+export default function HeaderTypography({
+  variant = "h4",
+  component = "h1",
+  align = "center",
+  gutterBottom = true,
+  children,
+  sx = {},
 }) {
   return (
     <Typography
@@ -15,15 +15,13 @@ function HeaderTypography({
       align={align}
       gutterBottom={gutterBottom}
       sx={{
-        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-        fontWeight: 'bold',
-        color: 'text.primary',
-        ...sx, 
+        fontSize: { xs: "2rem", md: "2.5rem" },
+        fontWeight: "bold",
+        color: "text.primary",
+        ...sx,
       }}
     >
       {children}
     </Typography>
   );
 }
-
-export default HeaderTypography;
