@@ -11,12 +11,21 @@ import {
 } from "@mui/icons-material";
 import Image from "next/image";
 
-const QuickLinks = ["Home", "About Us", "Courses", "Admissions", "Contact Us"];
 const contactInfo = [
   { icon: <LocationOn />, text: "123 College Road, City, State" },
   { icon: <Phone />, text: "+91 98451 23456" },
   { icon: <Email />, text: "contact@mycollege.edu" },
 ];
+
+const QuickLinks = ["Home", "About Us", "Courses", "Admissions", "Contact Us"];
+
+const usefulResources = [
+  { text: "Online Library", href: "https://library.mycollege.edu" },
+  { text: "Research Tools", href: "https://tools.mycollege.edu" },
+  { text: "Student Portal", href: "https://portal.mycollege.edu" },
+  { text: "Alumni Network", href: "https://alumni.mycollege.edu" },
+];
+
 const socialLinks = [
   { icon: <Facebook />, href: "https://facebook.com" },
   { icon: <Twitter />, href: "https://twitter.com" },
@@ -27,9 +36,9 @@ export default function CollegeFooter() {
   return (
     <>
       <Box sx={{ bgcolor: "#003366", color: "white", mt: 4, py: 4 }}>
-        <Grid container spacing={3} px={5}>
+        <Grid container spacing={3} px={3}>
           {/* College Name & Logo */}
-          <Grid size={{xs:12, md: 4}}>
+          <Grid size={{xs:12, md: 3}}>
             <Box>
               <Image
                 src="/images/my-logo.png"
@@ -39,7 +48,7 @@ export default function CollegeFooter() {
                 style={{ maxHeight: "80px", maxWidth: "120px" }}
                 priority
               />
-              <Typography variant="h6" fontWeight="bold" my={2}>
+              <Typography variant="h6" fontWeight="bold" my={2} color="red">
                 My College
               </Typography>
 
@@ -55,7 +64,7 @@ export default function CollegeFooter() {
           </Grid>
 
           {/* Quick Links */}
-          <Grid size={{xs:12, md: 4}}>
+          <Grid size={{xs:12, md: 3}}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Quick Links
             </Typography>
@@ -82,8 +91,37 @@ export default function CollegeFooter() {
             ))}
           </Grid>
 
+          {/* Useful Resources Section */}
+          <Grid size={{xs:12, md: 3}}>
+            <Typography variant="h6" fontWeight="bold" mb={2}>
+              Useful Resources
+            </Typography>
+            {usefulResources.map(({ text, href }, index) => (
+              <Box key={index} display="flex" alignItems="center" mb={1}>
+                <Typography variant="body2" sx={{ mr: 1 }}>
+                  &gt;
+                </Typography>
+                <Link
+                  href={href}
+                  color="inherit"
+                  underline="none"
+                  target="_blank"
+                  rel="noopener"
+                  sx={{
+                    "&:hover": {
+                      transform: "translateX(5px)",
+                      transition: "transform 0.3s ease",
+                    },
+                  }}
+                >
+                  {text}
+                </Link>
+              </Box>
+            ))}
+          </Grid>
+
           {/* Social Media Links */}
-          <Grid size={{xs:12, md: 4}}>
+          <Grid size={{xs:12, md: 3}}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Connect With Us
             </Typography>
