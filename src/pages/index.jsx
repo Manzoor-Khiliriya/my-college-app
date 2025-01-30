@@ -22,7 +22,7 @@ export default function Home() {
       <Hero />
       <HomeCard images={cardImages} />
       <Container>
-        <GallerySection images={galleryImages} title="Our College Gallery" />
+        <GallerySection images={galleryImages} />
         <HeaderTypography>Our Details</HeaderTypography>
         <DetailSection />
       </Container>

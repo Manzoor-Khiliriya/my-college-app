@@ -22,7 +22,7 @@ export default function CollegeFooter() {
       <Box sx={{ bgcolor: "#003366", color: "white", mt: 4, py: 4 }}>
         <Grid container spacing={3} px={3}>
           {/* College Name & Logo */}
-          <Grid size={{xs:6, md: 3}}>
+          <Grid size={{xs:12, md: 3}}>
             <Box>
               <Image
                 src="/images/my-logo.png"
@@ -40,7 +40,7 @@ export default function CollegeFooter() {
           </Grid>
 
           {/* Quick Links */}
-          <Grid size={{xs:6, md: 3}}>
+          <Grid size={{xs:12, md: 3}}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Quick Links
             </Typography>
@@ -65,7 +65,7 @@ export default function CollegeFooter() {
           </Grid>
 
           {/* Quick Contact */}
-          <Grid size={{xs:6, md: 3}}>
+          <Grid size={{xs:12, md: 3}}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Quick Contact
             </Typography>
@@ -80,7 +80,7 @@ export default function CollegeFooter() {
           </Grid>
 
           {/* Social Media Links */}
-          <Grid size={{xs:6, md: 3}}>
+          <Grid size={{xs:12, md: 3}}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Connect With Us
             </Typography>

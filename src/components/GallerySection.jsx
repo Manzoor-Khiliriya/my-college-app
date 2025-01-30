@@ -1,8 +1,9 @@
-import { Box, Grid, Typography, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import Image from "next/image";
 import HeaderTypography from "./HeaderTypography";
 
-function GallerySection({ title, images }) {
+function GallerySection({ images }) {
   return (
     <Box my={5}>
       <HeaderTypography>Our College Gallery</HeaderTypography>
@@ -10,7 +11,7 @@ function GallerySection({ title, images }) {
       <Paper sx={{ padding: 3, boxShadow: 2 }}>
         <Grid container spacing={2} justifyContent="center">
           {images.map((image, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid size={{xs:12, sm:6, md: 4}} key={index}>
               <Box sx={{ padding: 1 }}>
                 <Image
                   src={image.src}
