@@ -73,7 +73,8 @@ export default function CollegeFooter() {
                     "&:hover": {
                       transform: "translateX(5px)",
                       transition: "transform 0.3s ease",
-                    },
+                      color: "red"
+                    }
                   }}
                 >
                   {label}
@@ -102,7 +103,8 @@ export default function CollegeFooter() {
                     "&:hover": {
                       transform: "translateX(5px)",
                       transition: "transform 0.3s ease",
-                    },
+                      color: "red"
+                    }
                   }}
                 >
                   {text}
@@ -124,6 +126,11 @@ export default function CollegeFooter() {
                   target="_blank"
                   color="inherit"
                   aria-label={`Follow us on ${href.split("/")[2]}`}
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "red"
+                    }
+                  }}
                 >
                   {icon}
                 </IconButton>
