@@ -83,7 +83,7 @@ export default function CollegeFooter() {
             ))}
           </Grid>
 
-          {/* Useful Resources Section */}
+          {/* Useful Resources */}
           <Grid size={{ xs: 12, md: 3 }}>
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Useful Resources
