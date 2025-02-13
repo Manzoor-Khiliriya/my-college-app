@@ -4,22 +4,19 @@ function Section({ title, children, titleAlign = 'center', contentAlign = 'justi
   return (
     <Paper
       sx={{
-        padding: 4,
-        marginBottom: 4,
+        padding: 8,
         boxShadow: 3,
-        borderRadius: 2,
-        backgroundColor: 'background.paper',
+        borderRadius: 12,
+        bgcolor:'#3db166'
       }}
     >
       <Box
         sx={{
-          marginBottom: 2,
           paddingBottom: 1,
         }}
       >
         <Typography 
-          variant="h5" 
-          component="h2" 
+          variant="h4" 
           align={titleAlign} 
           gutterBottom
           sx={{ fontWeight: 'bold' }}
@@ -30,7 +27,7 @@ function Section({ title, children, titleAlign = 'center', contentAlign = 'justi
       <Typography 
         variant="body1" 
         align={contentAlign} 
-        sx={{ lineHeight: 1.7, color: 'text.secondary' }}
+        sx={{ lineHeight: 1.7, color: 'white' }}
       >
         {children}
       </Typography>

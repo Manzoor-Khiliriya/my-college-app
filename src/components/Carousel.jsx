@@ -36,15 +36,11 @@ export default function Carousel({ images, interval = 3000 }) {
   }, [handleNext, interval]);
 
   return (
-    <Box sx={{ maxWidth: "100%", position: "relative" }}>
+    <Box sx={{ position: "relative",width: "100%", height: {xs : 200, md: 550} }}>
       <Image
         src={images[activeIndex].src}
         alt={images[activeIndex].alt}
-        layout="responsive"
-        width={1200}
-        height={650} 
-        style={{ objectFit: "contain" }}
-        priority
+        fill
       />
       <IconButton
         onClick={handlePrev}

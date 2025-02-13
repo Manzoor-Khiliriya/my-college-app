@@ -1,9 +1,12 @@
+import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Head from "next/head";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box } from "@mui/material";
 
 function MyApp({ Component, pageProps }) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
     <>
       <CssBaseline />
@@ -15,11 +18,24 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <Header />
-      <main>
-        <Component {...pageProps} />
-      </main>
-      <Footer />
+      <Box
+        sx={{
+          fontFamily: "'Poppins', sans-serif",
+          textTransform: "none",
+          transition: "transform 0.3s ease-in-out",
+          transform: isDrawerOpen
+            ? { xs: "translateX(-45%)", sm: "translateX(-330px)" }
+            : "translateX(0)",
+        }}
+      >
+        <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+
+        <main>
+          <Component {...pageProps} />
+        </main>
+
+        <Footer />
+      </Box>
     </>
   );
 }

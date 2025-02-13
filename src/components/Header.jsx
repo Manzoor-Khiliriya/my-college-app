@@ -1,138 +1,377 @@
-"use client";
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/router";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
-import { IconButton, Collapse, Tabs, Tab, MenuItem } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  useMediaQuery,
+  Typography,
+  Divider,
+  Link,
+} from "@mui/material";
+import { Close as CancelIcon, Menu as MenuIcon } from "@mui/icons-material";
 import Image from "next/image";
-import MenuIcon from "@mui/icons-material/Menu";
+import TopBar from "./TopBar";
 
-export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const tabStyles = (isActive, isHovered) => ({
+  color: isActive || isHovered ? "#3db166" : "#163269",
+  fontFamily: "sans-serif",
+  fontSize: "14px",
+  fontWeight: "500",
+  paddingBlock: 4,
+  position: "relative",
+  transition: "color 0.3s ease",
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: 0,
+    bottom: 0,
+    height: "6px",
+    backgroundColor: isActive || isHovered ? "#3db166" : "transparent",
+    display: "inline-block",
+    width: isActive || isHovered ? "100%" : "0",
+    transition: " background-color 0.3s ease",
+  },
+});
+
+export default function Header({ isDrawerOpen, setIsDrawerOpen }) {
   const router = useRouter();
-  const { pathname } = router; 
+  const { pathname } = router;
+  const isMobile = useMediaQuery("(max-width: 1260px)");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState(null);
+  const [expandedTab, setExpandedTab] = useState(null);
+  const [hoveredTab, setHoveredTab] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
 
-  const mobileMenuRef = useRef(null);
-  const toggleButtonRef = useRef(null);
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuItems = useMemo(
     () => [
       { label: "Home", href: "/" },
-      { label: "About Us", href: "/about-us" },
-      { label: "Courses", href: "/courses" },
-      { label: "Faculties", href: "/faculties" },
-      { label: "Admissions", href: "/admissions" },
-      { label: "Students Registration", href: "/students-registration" },
-      { label: "Contact Us", href: "/contact-us" },
+      {
+        label: "Institution",
+        href: "#",
+        subLinks: [
+          { label: "About Us", href: "/about-us" },
+          { label: "College Map", href: "/college-map" },
+          {
+            label: "Mandatory Disclosure",
+            href: "https://lbscek.ac.in/wp-content/uploads/2024/12/mandatory_disclosure2425.pdf",
+          },
+          { label: "AICTE Orders", href: "/aicte-orders" },
+        ],
+      },
+      {
+        label: "Administration",
+        href: "#",
+        subLinks: [
+          { label: "Board of Governors", href: "/board-of-governance" },
+          { label: "Director", href: "/director" },
+        ],
+      },
+      {
+        label: "Admission",
+        href: "#",
+        subLinks: [
+          { label: "Admission Process", href: "/admission-procedure" },
+          { label: "Admission (KEAM)", href: "/admission-keam" },
+        ],
+      },
+      {
+        label: "Academics",
+        href: "#",
+        subLinks: [
+          { label: "Departments", href: "/departments" },
+          { label: "Programs", href: "/programs" },
+        ],
+      },
+      {
+        label: "Activities",
+        href: "#",
+        subLinks: [
+          { label: "Career Guidance & Placement Unit(CGPU)", href: "/cgpu" },
+          { label: "Alumni Association", href: "/alumni-association" },
+        ],
+      },
+      {
+        label: "Facilities",
+        href: "#",
+        subLinks: [
+          { label: "Central Library", href: "/central-library" },
+          { label: "Digital Library", href: "/digital-library" },
+        ],
+      },
+      {
+        label: "Fee Payment",
+        href: "#",
+        subLinks: [
+          { label: "Annual / Admission", href: "/online-annual-admission" },
+          {
+            label: "Exam / Other Fee",
+            href: "https://lbscentre.kerala.gov.in/lbscek/studlogin/login",
+          },
+        ],
+      },
     ],
     []
   );
 
-  const handleToggle = () => setIsMobileMenuOpen((prev) => !prev);
+  useEffect(() => {
+    const matchingMenuItem = menuItems.find((item) => {
+      if (item.href === pathname) return true;
+      if (item.subLinks) {
+        return item.subLinks.some((subLink) => subLink.href === pathname);
+      }
+      return false;
+    });
+    setActiveTab(matchingMenuItem ? matchingMenuItem.label : null);
+  }, [pathname, menuItems]);
 
   const handleNavigation = useCallback(
-    (href) => {
-      router.push(href);
-      setIsMobileMenuOpen(false);
+    (href, label, subLinks) => {
+      if (subLinks && subLinks.length > 0) {
+        setExpandedTab(expandedTab === label ? null : label);
+      } else {
+        router.push(href);
+        setIsDrawerOpen(false);
+      }
     },
-    [router]
+    [expandedTab, router, setIsDrawerOpen]
   );
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if ( mobileMenuRef.current && 
-        !mobileMenuRef.current.contains(event.target) && 
-        toggleButtonRef.current && 
-        !toggleButtonRef.current.contains(event.target)) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const tabStyles = {
-    color: "white",
-    position: "relative",
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      width: 0,
-      height: "2px",
-      backgroundColor: "transparent",
-      transition: "width 0.3s ease-in-out, background-color 0.3s ease-in-out",
-    },
-    "&:hover::after": { width: "100%", backgroundColor: "white" },
-    "&:hover": { color: "red" },
-  };
-
-  const activeTabStyles = {
-    color: "#00FFFF",
+  const handleSublinkNavigation = (subLinkHref) => {
+    router.push(subLinkHref);
+    setIsDrawerOpen(false);
+    setExpandedTab(null);
   };
 
   return (
-    <AppBar position="static" elevation={4} sx={{ backgroundColor: "#003366" }}>
-      <Toolbar>
-        {/* Logo */}
-        <Box component="a" href="/" sx={{ cursor: "pointer", display: "flex" }}>
-          <Image src="/images/my-logo.png" width={150} height={80} style={{marginBlock: 3}} alt="College Logo" priority />
-        </Box>
+    <>
+      {/* Top Bar */}
+      <TopBar isMobile={isMobile} isScrolled={isScrolled} />
 
-        {/* Desktop Navigation */}
-        <Box sx={{ marginInline: "auto", display: { xs: "none", lg: "flex" } }}>
-          <Tabs
-            value={pathname}
-            aria-label="Navigation Tabs"
-            textColor="primary"
-            indicatorColor="primary"
-            sx={{ "& .MuiTabs-indicator": { backgroundColor: "white" } }}
+      {/* Navigation Bar */}
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={{
+          top: 0,
+          zIndex: 1100,
+          backgroundColor: "white",
+          px: { xs: "1.5%", sm: "5%", md: "1.5%" },
+          boxShadow: isScrolled ? 1 : 0,
+          transition: "box-shadow 0.3s ease, padding 0.3s ease",
+        }}
+      >
+        <Toolbar
+          sx={{
+            display: "flex",
+            flexDirection: isScrolled || isMobile ? "row" : "column",
+            pb: isScrolled || isMobile ? 1 : 0,
+            transition:
+              "flex-direction 0.3s ease-in-out, padding 0.3s ease-in-out",
+          }}
+        >
+          {/* Logo */}
+          <Box
+            component="a"
+            href="/"
+            sx={{
+              cursor: "pointer",
+              display: "flex",
+              width: isScrolled ? 200 : { xs: 200, md: 350 },
+              height: isScrolled ? 40 : { xs: 40, md: 73 },
+              position: "relative",
+              mr: "auto",
+              my: { xs: 1.5, md: 2.5 },
+              transition: "all 0.3s ease",
+            }}
           >
-            {menuItems.map(({ label, href }) => (
-            <Tab key={href} value={href}   onClick={() => handleNavigation(href)} label={label} sx={pathname === href ? activeTabStyles : tabStyles} />
-            ))}
-          </Tabs>
-        </Box>
+            <Image src="/images/my-logo.png" fill alt="College Logo" priority />
+          </Box>
 
-        {/* Mobile Menu Icon */}
-        <Box sx={{ display: { xs: "flex", lg: "none" }, marginLeft: "auto" }}>
-          <IconButton
-            color="inherit"
-            aria-label="open menu"
-            aria-controls="mobile-menu"
-            aria-expanded={isMobileMenuOpen}
-            onClick={handleToggle}
-            sx={{ transition: "transform 0.3s ease-in-out", transform: isMobileMenuOpen ? "rotate(90deg)" : "rotate(0deg)" }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
+          {/* Desktop Navigation */}
+          {!isMobile && (
+            <Box sx={{ ml: "auto", display: "flex" }}>
+              {menuItems.map(({ label, href, subLinks }) => {
+                const isActive = activeTab === label;
+                return (
+                  <Box
+                    key={href}
+                    sx={{
+                      position: "relative",
+                      marginInline: "20px",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={() => {
+                      setHoveredTab(label);
+                      if (subLinks) setDropdownOpen(label);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredTab(null);
+                      setDropdownOpen(null);
+                    }}
+                    onBlur={() => setDropdownOpen(null)}
+                  >
+                    <Typography
+                      sx={{ ...tabStyles(isActive, hoveredTab === label) }}
+                      onClick={() => {
+                        handleNavigation(href);
+                      }}
+                      tabIndex={0}
+                    >
+                      {label}
+                    </Typography>
 
-      {/* Mobile Navigation Dropdown */}
-      <Collapse in={isMobileMenuOpen} timeout="auto" unmountOnExit>
-        <Box ref={mobileMenuRef} sx={{ backgroundColor: "darkblue", padding: 2, maxHeight: "60vh", overflowY: "auto" }}>
-          {menuItems.map(({ label, href }) => (
-            <MenuItem
-              key={href}
-              onClick={() => handleNavigation(href)}
+                    {subLinks && dropdownOpen === label && (
+                      <Box
+                        className="dropdown"
+                        sx={{
+                          position: "absolute",
+                          backgroundColor: "#f3f3f3",
+                          zIndex: 3,
+                          fontSize: "14px",
+                          padding: "6px",
+                          width: "max-content",
+                          display: "block",
+                          "& a": {
+                            color: "#000000",
+                            padding: "6px 10px",
+                            display: "block",
+                            textDecoration: "none",
+                            "&:hover": { color: "#163269" },
+                          },
+                        }}
+                      >
+                        {subLinks.map(({ label: subLabel, href: subHref }) => (
+                          <Link
+                            key={subHref}
+                            href={subHref}
+                            onClick={() => {
+                              setDropdownOpen(null);
+                              handleNavigation(subHref);
+                            }}
+                          >
+                            {subLabel}
+                          </Link>
+                        ))}
+                      </Box>
+                    )}
+                  </Box>
+                );
+              })}
+            </Box>
+          )}
+
+          {/* Mobile Toggle Button */}
+          {isMobile && (
+            <IconButton
+              aria-label={isDrawerOpen ? "close drawer" : "open drawer"}
+              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
               sx={{
-                color: pathname === href ? activeTabStyles.color : "white",
-                padding: 1,
-                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)", color: pathname === href ? activeTabStyles.color : "red" },
+                ml: "auto",
+                transition: "transform 0.3s ease-in-out",
+                transform: isDrawerOpen ? "rotate(90deg)" : "rotate(0deg)",
+                color: "black",
+                "&:focus": { bgcolor: "transparent" },
               }}
             >
-              {label}
-            </MenuItem>
-          ))}
-        </Box>
-      </Collapse>
-    </AppBar>
+              {isDrawerOpen ? <CancelIcon /> : <MenuIcon />}
+            </IconButton>
+          )}
+        </Toolbar>
+
+        {/* Mobile Navigation Drawer */}
+        <Drawer
+          anchor="right"
+          open={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+          sx={{
+            "& .MuiDrawer-paper": {
+              width: { xs: "50%", sm: 350 },
+              maxWidth: 350,
+              backgroundColor: "#1f1f1f",
+              px: 3,
+              color: "white",
+            },
+          }}
+        >
+          <Box sx={{ display: "flex", justifyContent: "start", pt: 4 }}>
+            <IconButton onClick={() => setIsDrawerOpen(false)}>
+              <CancelIcon
+                sx={{ color: "#5e5e5e", "&:hover": { color: "white" } }}
+              />
+            </IconButton>
+          </Box>
+
+          {/* Drawer Navigation Links */}
+          <List sx={{ pt: 7 }}>
+            {menuItems.map(({ label, href, subLinks }) => (
+              <React.Fragment key={label}>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleNavigation(href, label, subLinks)}>
+                    <Link
+                      href={href}
+                      sx={{
+                        textDecoration: "none",
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        color: activeTab === label ? "white" : "#5e5e5e",
+                        transition: "color 0.2s ease",
+                        "&:hover": { color: "white" },
+                        width: "100%",
+                        textAlign: "left",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {label}
+                    </Link>
+                  </ListItemButton>
+                </ListItem>
+
+                {expandedTab === label && subLinks && (
+                  <List sx={{ pl: 2 }}>
+                    {subLinks.map((subLink) => (
+                      <ListItem key={subLink.label} disablePadding>
+                        <ListItemButton onClick={() => handleSublinkNavigation(subLink.href)}>
+                          <Link
+                            href={subLink.href}
+                            sx={{
+                              textDecoration: "none",
+                              fontSize: "12px",
+                              fontWeight: 600,
+                              color: "#5e5e5e",
+                              transition: "color 0.2s ease",
+                              "&:hover": { color: "white" },
+                              width: "100%",
+                              textAlign: "left",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            {subLink.label}
+                          </Link>
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+
+                <Divider sx={{ width: "100%", bgcolor: "#5e5e5e", mt: 1, mb: 1 }} />
+              </React.Fragment>
+            ))}
+          </List>
+        </Drawer>
+      </AppBar>
+    </>
   );
 }
