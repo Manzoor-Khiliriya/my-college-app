@@ -1,6 +1,5 @@
 import {
   Box,
-  Link,
   Typography,
   Table,
   TableBody,

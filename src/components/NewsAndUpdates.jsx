@@ -91,11 +91,12 @@ export default function NewsAndUpdates() {
               .slice(gridIndex * 6, (gridIndex + 1) * 6)
               .map((item) => (
                 <Link
+                key={item.id}
                   href={`/news/${item.id}`}
                   passHref
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <Grid size={12} display={"flex"} gap={3} key={item.id}>
+                  <Grid size={12} display={"flex"} gap={3}>
                     <Box
                       sx={{
                         overflow: 'hidden',

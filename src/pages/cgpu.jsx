@@ -1,7 +1,6 @@
 import { Box, Link, Typography } from "@mui/material";
 import React from "react";
 import CustomHeading from "../components/CustomHeading";
-import { Height } from "@mui/icons-material";
 import Image from "next/image";
 
 export default function CGPU() {
@@ -36,7 +35,7 @@ export default function CGPU() {
         Email: <Link href="mailto:cgpu@bscek.ac.in" underline="none" color="grey" sx={{'&:hover' : {color: '#3db166'}}}>cgpu@bscek.ac.in</Link>
         </Typography>
         <Box sx={{position: 'relative', width: '100%', height: {xs: 170, md:220, lg: 280}}}>
-            <Image src={'/images/placement-graph-1.jpg'} fill />
+            <Image src={'/images/placement-graph-1.jpg'} fill alt="placement" />
         </Box>
       </Box>
     </Box>

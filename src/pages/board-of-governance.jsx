@@ -1,9 +1,6 @@
 import {
   Box,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
   Link,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
@@ -108,6 +105,7 @@ export default function BoardOfGovernors() {
           <Box>
             {minutesLinks.map((link, index) => (
               <Link
+              key={index}
                 href={link.link}
                 underline="none"
                 display={'block'}

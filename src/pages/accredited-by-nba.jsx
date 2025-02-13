@@ -18,7 +18,7 @@ export default function AccreditedByNba() {
             mx: "auto",
           }}
         >
-          <Image src={"/images/accredited.jpg"} fill />
+          <Image src={"/images/accredited.jpg"} fill alt="accredited" />
         </Box>
         <Box
           sx={{
@@ -28,7 +28,7 @@ export default function AccreditedByNba() {
             mx: "auto",
           }}
         >
-          <Image src={"/images/accredited-2.jpg"} fill />
+          <Image src={"/images/accredited-2.jpg"} fill alt="accredited-2"/>
         </Box>
       </Box>
     </Box>

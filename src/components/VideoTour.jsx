@@ -32,6 +32,7 @@ export default function VideoTour() {
             height={80}
             width={85}
             style={{ marginBottom: "20px" }}
+            alt="play-icon"
           />
         </Link>
         <Typography variant="h4" fontWeight={800} gutterBottom mb={4}>

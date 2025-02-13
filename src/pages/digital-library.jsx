@@ -26,8 +26,8 @@ export default function DigitalLibrary() {
           <Typography variant="h5" fontWeight={800} my={3}>
           Digital library links
           </Typography>
-          {libraryLinks.map(({label, href}) => (
-            <Typography variant="h6" fontWeight={800} my={3}>
+          {libraryLinks.map(({label, href}, index) => (
+            <Typography key={index} variant="h6" fontWeight={800} my={3}>
            {label} {" "}
             <Link
               href={href}

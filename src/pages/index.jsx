@@ -64,7 +64,7 @@ export default function Home() {
           display={"flex"}
           bgcolor={"#3db166"}
         >
-          <Image src={"/images/logo-only.png"} width={50} height={40} />
+          <Image src={"/images/logo-only.png"} width={50} height={40} alt="logo" />
           <Typography variant="h6" color="white" fontWeight={600}>
             Take A Tour of Our Campus
           </Typography>

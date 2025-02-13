@@ -5,21 +5,7 @@ import CustomHeading from "../components/CustomHeading";
 import ContactInfoCard from "../components/ContactInfoCard";
 
 export default function OnlineAnnualAdmission() {
-  const libraryLinks = [
-    {
-      label: "Knimbus ",
-      href: "https://lbscek.knimbus.com/libraryStatus.html#/home",
-    },
-    {
-      label: "National Digital Library of India ",
-      href: "https://ndl.iitkgp.ac.in/",
-    },
-    { label: "Open Access Journals & articles", href: "https://doaj.org/" },
-    {
-      label: "Lbscek Central Library ",
-      href: "https://lbsceklibrary.weebly.com/",
-    },
-  ];
+ 
   return (
     <Box>
       <CustomHeading>Online Annual / Admission</CustomHeading>
